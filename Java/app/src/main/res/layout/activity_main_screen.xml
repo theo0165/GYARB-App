@@ -9,7 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -31,5 +31,15 @@
         android:scaleType="center"
         app:maxImageSize="32dp"
         app:srcCompat="@drawable/ic_add_black_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/settings_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        android:scaleType="center"
+        app:maxImageSize="32dp"
+        app:srcCompat="@drawable/ic_settings_black_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>
