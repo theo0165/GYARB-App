@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">TodoAppJava</string>
     <string name="action_settings">Settings</string>
+
+    <string name="fragment_todo">TODO FRAGMENT</string>
+    <string name="fragment_completed">COMPLETED FRAGMENT</string>
+
+    <string name="todo_tab_title">Todo\'s</string>
+    <string name="completed_tab_title">Completed</string>
 </resources>
