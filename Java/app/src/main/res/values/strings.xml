@@ -7,4 +7,6 @@
 
     <string name="todo_tab_title">Todo\'s</string>
     <string name="completed_tab_title">Completed</string>
+
+    <string name="title_add_screen">Add todo</string>
 </resources>
