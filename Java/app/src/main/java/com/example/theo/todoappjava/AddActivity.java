@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 
 import java.util.Objects;
 
@@ -22,6 +23,9 @@ public class AddActivity extends AppCompatActivity {
         Objects.requireNonNull(ab).setDisplayShowTitleEnabled(false);
 
         ab.setDisplayHomeAsUpEnabled(true);
+
+        DatePicker datePicker = (DatePicker) findViewById(R.id.deadline_input);
+        datePicker.setMinDate(System.currentTimeMillis() - 1000);
     }
 
     @Override
