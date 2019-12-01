@@ -143,14 +143,62 @@
                     android:textSize="18sp"/>
 
 
-                <GridLayout
+                <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/category_title"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/category_title"
+                    android:orientation="horizontal"
+                    android:checkedButton="@id/category_none">
 
-                </GridLayout>
+                    <RadioButton
+                        android:id="@+id/category_none"
+                        android:layout_width="@dimen/category_btn_width"
+                        android:layout_height="@dimen/category_btn_height"
+                        android:background="@drawable/radio_none_background"
+                        android:button="@android:color/transparent"
+                        android:text="NONE"
+                        android:textAlignment="center" />
+
+                    <RadioButton
+                        android:id="@+id/category_green"
+                        android:layout_width="@dimen/category_btn_width"
+                        android:layout_height="@dimen/category_btn_height"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/radio_green_background"
+                        android:button="@android:color/transparent"
+                        android:text="" />
+
+                    <RadioButton
+                        android:id="@+id/category_red"
+                        android:layout_width="@dimen/category_btn_width"
+                        android:layout_height="@dimen/category_btn_height"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/radio_red_background"
+                        android:button="@android:color/transparent"
+                        android:text="" />
+
+                    <RadioButton
+                        android:id="@+id/category_orange"
+                        android:layout_width="@dimen/category_btn_width"
+                        android:layout_height="@dimen/category_btn_height"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/radio_orange_background"
+                        android:button="@android:color/transparent"
+                        android:text="" />
+
+                    <RadioButton
+                        android:id="@+id/category_blue"
+                        android:layout_width="@dimen/category_btn_width"
+                        android:layout_height="@dimen/category_btn_height"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/radio_blue_background"
+                        android:button="@android:color/transparent"
+                        android:text=""/>
+
+                </RadioGroup>
 
             </android.support.constraint.ConstraintLayout>
 
