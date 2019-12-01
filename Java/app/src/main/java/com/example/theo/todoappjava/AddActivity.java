@@ -45,22 +45,18 @@ public class AddActivity extends AppCompatActivity {
 
         noDeadlineCheckbox = (CheckBox) findViewById(R.id.no_deadline_checkbox);
 
-        /*noDeadlineCheckbox.setOnClickListener(new View.OnClickListener() {
+        noDeadlineCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(((CheckBox) v).isChecked()){
                     Log.d(TAG, "onClick: checkbox is checked");
-                    datePicker.setClickable(false);
-                    datePicker.setAlpha(0.5f);
-                    datePicker.setEnabled(false);
+                    datePicker.setVisibility(View.GONE);
                 }else{
                     Log.d(TAG, "onClick: Checkbox is NOT checked");
-                    datePicker.setClickable(true);
-                    datePicker.setAlpha(1.0f);
-                    datePicker.setEnabled(true);
+                    datePicker.setVisibility(View.VISIBLE);
                 }
             }
-        });*/
+        });
 
         sV = (ScrollView) findViewById(R.id.scrollView);
         sV.scrollTo(0, sV.getBottom());

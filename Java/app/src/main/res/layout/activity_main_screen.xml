@@ -36,7 +36,7 @@
             android:layout_margin="@dimen/fab_margin"
             android:scaleType="center"
             app:maxImageSize="32dp"
-            app:srcCompat="@drawable/ic_settings_black_24dp"
+            app:srcCompat="@drawable/ic_settings_white_24dp"
             app:layout_constraintStart_toStartOf="parent" />
 
 
@@ -54,7 +54,7 @@
             android:scaleType="center"
             app:layout_constraintStart_toEndOf="parent"
             app:maxImageSize="32dp"
-            app:srcCompat="@drawable/ic_add_black_24dp" />
+            app:srcCompat="@drawable/ic_add_white_24dp" />
 
     </LinearLayout>
 

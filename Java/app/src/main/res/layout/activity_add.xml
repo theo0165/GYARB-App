@@ -34,7 +34,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@drawable/ic_check_black_24dp"
+        app:srcCompat="@drawable/ic_check_white_24dp"
         app:maxImageSize="32dp" />
 
     <ScrollView
