@@ -25,7 +25,20 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/save_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_check_black_24dp"
+        app:maxImageSize="32dp" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -37,66 +50,113 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/name_container"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/name_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:labelFor="@id/name_input"
-                android:text="@string/add_input_name_title"
-                android:textAlignment="viewStart"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/name_input"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <EditText
-                android:id="@+id/name_input"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/name_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLength="128"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name_title" />
+                android:orientation="horizontal">
 
-        </android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:id="@+id/name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/name_input"
+                    android:text="@string/add_input_name_title"
+                    android:textAlignment="viewStart"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/name_input"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/deadline_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/name_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="128"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/name_title" />
 
-            <TextView
-                android:id="@+id/deadline_title"
-                android:layout_width="wrap_content"
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/deadline_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:labelFor="@id/name_input"
-                android:text="@string/add_input_deadline_title"
-                android:textAlignment="viewStart"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/deadline_input"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
 
-            <DatePicker
-                android:id="@+id/deadline_input"
-                android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/deadline_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_input_deadline_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textSize="18sp"/>
+
+
+                <DatePicker
+                    android:id="@+id/deadline_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/deadline_title" />
+
+                <CheckBox
+                    android:id="@+id/no_deadline_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/no_deadline_checkbox_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/deadline_input" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/category_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/deadline_title" />
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
 
-        </android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:id="@+id/category_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_input_category_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textSize="18sp"/>
 
-    </LinearLayout>
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/category_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                </GridLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>

@@ -12,4 +12,7 @@
 
     <string name="add_input_name_title">Name</string>
     <string name="add_input_deadline_title">Deadline</string>
+    <string name="add_input_category_title">Category</string>
+
+    <string name="no_deadline_checkbox_text">No deadline</string>
 </resources>
