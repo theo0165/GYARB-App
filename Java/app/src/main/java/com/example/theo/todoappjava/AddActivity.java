@@ -1,6 +1,7 @@
 package com.example.theo.todoappjava;
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -60,6 +65,22 @@ public class AddActivity extends AppCompatActivity {
 
         sV = (ScrollView) findViewById(R.id.scrollView);
         sV.scrollTo(0, sV.getBottom());
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText nameInput = findViewById(R.id.name_input);
+                RadioGroup categoryGroup = findViewById(R.id.category_group);
+
+                int checkedCategory = categoryGroup.getCheckedRadioButtonId();
+                RadioButton checkedCategoryButton = findViewById(checkedCategory);
+
+                if(nameInput.getText().toString().matches("")){
+                    Snackbar.make(v, "Name is required", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                }else{
+                }
+            }
+        });
     }
 
     @Override
