@@ -12,4 +12,5 @@
     <color name="radio_none">#eeeeee</color>
 
     <color name="radio_border">#ffffff</color>
+    <color name="radio_border_regular">@color/colorAccent</color>
 </resources>

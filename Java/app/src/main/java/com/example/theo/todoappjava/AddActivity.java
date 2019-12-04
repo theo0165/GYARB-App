@@ -78,6 +78,7 @@ public class AddActivity extends AppCompatActivity {
                 if(nameInput.getText().toString().matches("")){
                     Snackbar.make(v, "Name is required", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
                 }else{
+
                 }
             }
         });
