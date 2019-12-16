@@ -2,10 +2,13 @@ package com.example.theo.todoappjava.Helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.theo.todoappjava.TodoItem;
+import com.example.theo.todoappjava.Models.TodoItem;
+
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static int DATABASE_VERSION = 1;
@@ -62,14 +65,59 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    void addTodoItem(TodoItem item){
+    public void addTodoItem(TodoItem item){
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
-        values.put("title", item.getTitle());
+        values.put("title", item.getName());
         values.put("category", item.getCategory());
 
         db.insert("todoitem", null, values);
         db.close();
+    }
+
+    public ArrayList<TodoItem> getTodoItems(boolean completed){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<TodoItem> items = new ArrayList<TodoItem>();
+        String query;
+
+        if(completed){
+            query = "SELECT * FROM todoitem WHERE completed=1";
+        }else{
+            query = "SELECT * FROM todoitem WHERE completed=0";
+        }
+
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String name = cursor.getString(cursor.getColumnIndex("title"));
+            boolean isCompleted;
+            int category = cursor.getInt(cursor.getColumnIndex("category"));
+
+            if(cursor.getInt(cursor.getColumnIndex("completed")) == 1){
+                isCompleted = true;
+            }else{
+                isCompleted = false;
+            }
+
+            items.add(new TodoItem(name, isCompleted, category, id));
+        }
+
+        cursor.close();
+
+        return items;
+    }
+
+    public String getCategoryColor(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT color FROM category WHERE id=" + id;
+        Cursor cursor = db.rawQuery(query, null);
+
+        cursor.moveToFirst();
+
+        String color = cursor.getString(0);
+        cursor.close();
+
+        return color;
     }
 }

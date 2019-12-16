@@ -8,11 +8,19 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.theo.todoappjava.Helpers.DatabaseHelper;
+import com.example.theo.todoappjava.Models.TodoItem;
+
+import java.util.ArrayList;
+
 public class MainScreen extends AppCompatActivity {
+    private static final String TAG = "com.example.theo.todoappjava";
+
     TabLayout tabLayout;
     ViewPager viewPager;
 
@@ -67,6 +75,10 @@ public class MainScreen extends AppCompatActivity {
             }
         });
 
-
+        final DatabaseHelper db = new DatabaseHelper(this);
+        ArrayList<TodoItem> items = db.getTodoItems(false);
+        for(int i = 0; i<items.size();i++){
+            Log.d(TAG, "onCreate: TODO ITEM:\nName: " + items.get(i).getName() + "\nCategory color: " + db.getCategoryColor(items.get(i).getCategory()) + "\n\n");
+        }
     }
 }
