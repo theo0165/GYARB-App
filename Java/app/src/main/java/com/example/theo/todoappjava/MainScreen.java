@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.theo.todoappjava.Helpers.DatabaseHelper;
 import com.example.theo.todoappjava.Models.TodoItem;
@@ -74,11 +75,5 @@ public class MainScreen extends AppCompatActivity {
 
             }
         });
-
-        final DatabaseHelper db = new DatabaseHelper(this);
-        ArrayList<TodoItem> items = db.getTodoItems(false);
-        for(int i = 0; i<items.size();i++){
-            Log.d(TAG, "onCreate: TODO ITEM:\nName: " + items.get(i).getName() + "\nCategory color: " + db.getCategoryColor(items.get(i).getCategory()) + "\n\n");
-        }
     }
 }

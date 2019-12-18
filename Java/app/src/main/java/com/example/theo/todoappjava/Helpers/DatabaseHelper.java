@@ -5,10 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.theo.todoappjava.Models.TodoItem;
 
 import java.util.ArrayList;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static int DATABASE_VERSION = 1;
@@ -76,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<TodoItem> getTodoItems(boolean completed){
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getReadableDatabase();
         ArrayList<TodoItem> items = new ArrayList<TodoItem>();
         String query;
 
@@ -87,23 +90,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         Cursor cursor = db.rawQuery(query, null);
-        cursor.moveToFirst();
-        while(!cursor.isAfterLast()){
-            int id = cursor.getInt(cursor.getColumnIndex("id"));
-            String name = cursor.getString(cursor.getColumnIndex("title"));
-            boolean isCompleted;
-            int category = cursor.getInt(cursor.getColumnIndex("category"));
+        try{
+            if(cursor.moveToFirst()){
+                do{
+                    int id = cursor.getInt(cursor.getColumnIndex("id"));
+                    String title = cursor.getString(cursor.getColumnIndex("title"));
+                    int category = cursor.getInt(cursor.getColumnIndex("category"));
+                    boolean isCompleted;
 
-            if(cursor.getInt(cursor.getColumnIndex("completed")) == 1){
-                isCompleted = true;
-            }else{
-                isCompleted = false;
+                    if(cursor.getInt(cursor.getColumnIndex("completed")) == 1){
+                        isCompleted = true;
+                    }else{
+                        isCompleted = false;
+                    }
+
+                    items.add(new TodoItem(title, isCompleted, category, id));
+                }while(cursor.moveToNext());
             }
-
-            items.add(new TodoItem(name, isCompleted, category, id));
+        }catch (Exception e){
+            Log.d(TAG, "getTodoItems: Error while trying to retrive todo items");
+        }finally {
+            if(cursor != null && !cursor.isClosed()){
+                cursor.close();
+            }
         }
-
-        cursor.close();
 
         return items;
     }
