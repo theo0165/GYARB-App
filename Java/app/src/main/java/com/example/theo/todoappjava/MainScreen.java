@@ -7,17 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
-
-import com.example.theo.todoappjava.Helpers.DatabaseHelper;
-import com.example.theo.todoappjava.Models.TodoItem;
-
-import java.util.ArrayList;
 
 public class MainScreen extends AppCompatActivity {
     private static final String TAG = "com.example.theo.todoappjava";

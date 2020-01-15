@@ -1,7 +1,5 @@
 package com.example.theo.todoappjava.Models;
 
-import com.example.theo.todoappjava.Helpers.DatabaseHelper;
-
 public class TodoItem {
     private int _id;
     private String _name;
