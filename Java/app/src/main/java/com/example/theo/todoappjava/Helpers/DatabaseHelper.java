@@ -74,8 +74,6 @@ public class DatabaseHelper {
                     }else{
                         isCompleted = false;
                     }
-
-                    items.add(new TodoItem(title, isCompleted, category, id));
                 }while(cursor.moveToNext());
             }
         }catch (Exception e){
@@ -100,5 +98,12 @@ public class DatabaseHelper {
         cursor.close();
 
         return color;
+    }
+
+    public void setItemAsComplete(int id){
+        String query = "UPDATE todoitem SET complete=1 WHERE id=" + id;
+        Cursor cursor = databaseWrite.rawQuery(query, null);
+
+        cursor.close();
     }
 }

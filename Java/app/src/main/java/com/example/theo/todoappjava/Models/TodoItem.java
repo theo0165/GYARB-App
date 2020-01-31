@@ -6,13 +6,15 @@ public class TodoItem {
     private boolean _completed;
     private int _category;
     private String _categoryColor;
+    private String _completeDate;
 
-    public TodoItem(String name, boolean completed, int category, int id){
+    public TodoItem(String name, boolean completed, int category, int id, String completeDate){
         // ID MAY BE NULL IF ITEM HAS NOT BEEN CREATED
         _id = id;
         _name = name;
         _completed = completed;
         _category = category;
+        _completeDate = completeDate;
     }
 
     public int getId() { return _id; }
@@ -30,4 +32,6 @@ public class TodoItem {
     public int getCategory() { return _category; }
 
     public void setCategory(int category) { this._category = category; }
+
+    public String getCompleteDate(){ return _completeDate; }
 }

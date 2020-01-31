@@ -1,5 +1,6 @@
 package com.example.theo.todoappjava;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -17,6 +18,11 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.example.theo.todoappjava.Helpers.DatabaseHelper;
+import com.example.theo.todoappjava.Models.TodoItem;
+import com.example.theo.todoappjava.TabFragments.TodoFragment;
+import com.example.theo.todoappjava.TodoListAdapter;
+
 import java.util.Objects;
 
 public class AddActivity extends AppCompatActivity {
@@ -29,6 +35,12 @@ public class AddActivity extends AppCompatActivity {
     CheckBox noDeadlineCheckbox;
     ScrollView sV;
     FloatingActionButton saveBtn;
+
+    TodoListAdapter adapter;
+
+    public void setListAdapter(TodoListAdapter _adapter){
+        adapter = _adapter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +87,19 @@ public class AddActivity extends AppCompatActivity {
                 int checkedCategory = categoryGroup.getCheckedRadioButtonId();
                 RadioButton checkedCategoryButton = findViewById(checkedCategory);
 
-                if(nameInput.getText().toString().matches("")){
-                    Snackbar.make(v, "Name is required", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-                }else{
 
+
+                if(nameInput.getText().toString().matches("")){
+                    Snackbar.make(v, "Title is required", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                }else {
+                    Intent intent = new Intent();
+                    intent.putExtra("name", nameInput.getText().toString());
+                    setResult(0, intent);
+
+                    //adapter.addItem();
                 }
+
+                finish();
             }
         });
     }
