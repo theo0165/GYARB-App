@@ -6,23 +6,18 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.theo.todoappjava.AddActivity;
-import com.example.theo.todoappjava.Helpers.DatabaseHelper;
-import com.example.theo.todoappjava.Helpers.DatabaseOpenHelper;
+import com.example.theo.todoappjava.Databases.TodoItemDatabase;
 import com.example.theo.todoappjava.Models.TodoItem;
 import com.example.theo.todoappjava.R;
 import com.example.theo.todoappjava.TodoListAdapter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import static android.support.constraint.Constraints.TAG;
+import java.util.List;
 
 public class TodoFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -43,11 +38,14 @@ public class TodoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ArrayList<TodoItem> items = new ArrayList<>();
-        items.add(new TodoItem("Test", false, 1, 1, "2020-01-01"));
+        // ArrayList<TodoItem> items = new ArrayList<>();
+        //items.add(new TodoItem("Test", false, 1, 1, "2020-01-01"));
+
+        List<TodoItem> items = TodoItemDatabase.getDatabase(getContext()).todoItemDao().getAllTodoItems();
+        ArrayList<TodoItem> items1 = new ArrayList<>(items);
 
         recyclerView = view.findViewById(R.id.todoList);
-        todoListAdapter = new TodoListAdapter(getContext(), items);
+        todoListAdapter = new TodoListAdapter(getContext(), items1);
 
         recyclerView.setAdapter(todoListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

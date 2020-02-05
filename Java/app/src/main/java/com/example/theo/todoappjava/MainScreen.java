@@ -83,7 +83,7 @@ public class MainScreen extends AppCompatActivity {
             if(bundle != null) {
                 String name = (String)bundle.get("name");
                 Log.d("TEST", "Name: "+ name);
-                adapter.getTodoFragment().getTodoListAdapter().addItem(new TodoItem(name, false, 0, 0, ""));
+                adapter.getTodoFragment().getTodoListAdapter().addItem(new TodoItem(name, false, 0, ""));
             }
         }
     }

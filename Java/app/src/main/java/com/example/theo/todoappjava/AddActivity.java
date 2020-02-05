@@ -16,12 +16,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
-import android.widget.Toast;
-
-import com.example.theo.todoappjava.Helpers.DatabaseHelper;
-import com.example.theo.todoappjava.Models.TodoItem;
-import com.example.theo.todoappjava.TabFragments.TodoFragment;
-import com.example.theo.todoappjava.TodoListAdapter;
 
 import java.util.Objects;
 

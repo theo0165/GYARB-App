@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.example.theo.todoappjava.Helpers.DatabaseHelper;
+import com.example.theo.todoappjava.Databases.TodoItemDatabase;
 import com.example.theo.todoappjava.Models.TodoItem;
 
 import java.util.ArrayList;
@@ -37,11 +37,11 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.mTodoText.setText(dItems.get(i).getName());
-        viewHolder.mTodoDate.setText(dItems.get(i).getCompleteDate());
+        viewHolder.mTodoText.setText(dItems.get(i).name);
+        viewHolder.mTodoDate.setText(dItems.get(i).completeDate);
 
-        viewHolder.itemView.setTag(dItems.get(i).getId());
-        viewHolder.mCheckbox.setTag(dItems.get(i).getId());
+        viewHolder.itemView.setTag(dItems.get(i).id);
+        viewHolder.mCheckbox.setTag(dItems.get(i).id);
     }
 
     @Override
@@ -66,10 +66,10 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         @Override
         public void onClick(View v) {
             if(v.equals(mCheckbox)){
-                DatabaseHelper db = new DatabaseHelper(context);
+                /*DatabaseHelper db = new DatabaseHelper(context);
                 db.open();
                 db.setItemAsComplete(Integer.getInteger(v.getTag().toString()));
-                db.close();
+                db.close();*/
 
                 removeAt(getAdapterPosition());
             }
@@ -86,10 +86,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
     public void addItem(TodoItem item){
         dItems.add(item);
 
-        DatabaseHelper db = new DatabaseHelper(context);
-        db.open();
-        db.addTodoItem(item);
-        db.close();
+        TodoItemDatabase.getDatabase(context).todoItemDao().addTodoItem(item);
 
         notifyItemInserted(dItems.size() - 1);
     }
