@@ -8,7 +8,7 @@ import android.content.Context;
 import com.example.theo.todoappjava.Models.TodoItem;
 import com.example.theo.todoappjava.Models.TodoItemDao;
 
-@Database(entities = {TodoItem.class}, version = 16, exportSchema = false)
+@Database(entities = {TodoItem.class}, version = 19, exportSchema = false)
 public abstract class TodoItemDatabase extends RoomDatabase {
 
     public static TodoItemDatabase INSTANCE;

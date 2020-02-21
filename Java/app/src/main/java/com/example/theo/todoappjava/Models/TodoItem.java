@@ -3,6 +3,8 @@ package com.example.theo.todoappjava.Models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.example.theo.todoappjava.Static.Categories;
+
 @Entity
 public class TodoItem {
 
@@ -11,7 +13,6 @@ public class TodoItem {
     public String name;
     public boolean completed;
     public int category;
-    public String categoryColor;
     public String completeDate;
 
     public TodoItem(String name, boolean completed, int category, String completeDate){

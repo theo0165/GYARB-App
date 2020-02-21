@@ -88,6 +88,7 @@ public class AddActivity extends AppCompatActivity {
                 }else {
                     Intent intent = new Intent();
                     intent.putExtra("name", nameInput.getText().toString());
+                    intent.putExtra("completeDate", datePicker.getDayOfMonth() + "-" + datePicker.getMonth() + "-" + datePicker.getYear());
                     setResult(0, intent);
 
                     //adapter.addItem();

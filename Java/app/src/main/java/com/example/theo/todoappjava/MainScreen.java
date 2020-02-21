@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.example.theo.todoappjava.Databases.TodoItemDatabase;
 import com.example.theo.todoappjava.Models.TodoItem;
+import com.example.theo.todoappjava.Static.Categories;
 import com.example.theo.todoappjava.TabFragments.TodoFragment;
 
 public class MainScreen extends AppCompatActivity {
@@ -82,8 +84,10 @@ public class MainScreen extends AppCompatActivity {
             Bundle bundle = data.getExtras();
             if(bundle != null) {
                 String name = (String)bundle.get("name");
+                String completeDate = (String)bundle.get("completeDate");
+
                 Log.d("TEST", "Name: "+ name);
-                adapter.getTodoFragment().getTodoListAdapter().addItem(new TodoItem(name, false, 0, ""));
+                adapter.getTodoFragment().getTodoListAdapter().addItem(new TodoItem(name, false, Categories.NONE.getId(), "01-01-2020"));
             }
         }
     }
