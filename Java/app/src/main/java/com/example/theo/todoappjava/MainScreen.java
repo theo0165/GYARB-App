@@ -85,9 +85,12 @@ public class MainScreen extends AppCompatActivity {
             if(bundle != null) {
                 String name = (String)bundle.get("name");
                 String completeDate = (String)bundle.get("completeDate");
+                boolean noDeadline = (boolean)bundle.get("noDeadline");
+                int categoryId = (int)bundle.get("categoryId");
 
                 Log.d("TEST", "Name: "+ name);
-                adapter.getTodoFragment().getTodoListAdapter().addItem(new TodoItem(name, false, Categories.NONE.getId(), "01-01-2020"));
+                //Categories.values()[]
+                adapter.getTodoFragment().getTodoListAdapter().addItem(new TodoItem(name, false, categoryId, completeDate, noDeadline));
             }
         }
     }

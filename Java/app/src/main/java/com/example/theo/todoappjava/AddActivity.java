@@ -81,6 +81,9 @@ public class AddActivity extends AppCompatActivity {
                 int checkedCategory = categoryGroup.getCheckedRadioButtonId();
                 RadioButton checkedCategoryButton = findViewById(checkedCategory);
 
+                CheckBox noDeadlineCheckbox = findViewById(R.id.no_deadline_checkbox);
+                boolean noDeadline = noDeadlineCheckbox.isChecked();
+
 
 
                 if(nameInput.getText().toString().matches("")){
@@ -89,6 +92,8 @@ public class AddActivity extends AppCompatActivity {
                     Intent intent = new Intent();
                     intent.putExtra("name", nameInput.getText().toString());
                     intent.putExtra("completeDate", datePicker.getDayOfMonth() + "-" + datePicker.getMonth() + "-" + datePicker.getYear());
+                    intent.putExtra("noDeadline", noDeadline);
+                    intent.putExtra("categoryId", checkedCategory);
                     setResult(0, intent);
 
                     //adapter.addItem();

@@ -14,11 +14,13 @@ public class TodoItem {
     public boolean completed;
     public int category;
     public String completeDate;
+    public boolean noDeadline;
 
-    public TodoItem(String name, boolean completed, int category, String completeDate){
+    public TodoItem(String name, boolean completed, int category, String completeDate, boolean noDeadline){
         this.name = name;
         this.completed = completed;
         this.category = category;
         this.completeDate = completeDate;
+        this.noDeadline = noDeadline;
     }
 }

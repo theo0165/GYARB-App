@@ -22,12 +22,16 @@ public class TabAdapter extends FragmentPagerAdapter {
 
         this.todoFragment = new TodoFragment();
         this.completedFragment = new CompletedFragment();
+
+        this.todoFragment.setCompletedFragment((this.completedFragment));
+
     }
 
     @Override
     public Fragment getItem(int pos){
         switch (pos){
             case 0:
+                //this.todoFragment.getTodoListAdapter().setCompletedFragment(this.completedFragment);
                 return todoFragment;
             case 1:
                 return completedFragment;

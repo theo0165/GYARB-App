@@ -25,7 +25,18 @@ public class TodoFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private TodoListAdapter todoListAdapter;
 
+    private CompletedFragment completedFragment;
+    private TodoListAdapter completedAdapter;
+
     public TodoFragment(){}
+
+    public void setCompletedFragment(CompletedFragment fragment) {
+        this.completedFragment = fragment;
+    }
+
+    public void setCompletedAdapter(TodoListAdapter adapter) {
+        this.completedAdapter = adapter;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -46,6 +57,9 @@ public class TodoFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.todoList);
         todoListAdapter = new TodoListAdapter(getContext(), items1);
+
+        setCompletedAdapter(this.completedFragment.getAdapter());
+        todoListAdapter.setCompletedFragment(this.completedFragment);
 
         recyclerView.setAdapter(todoListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
