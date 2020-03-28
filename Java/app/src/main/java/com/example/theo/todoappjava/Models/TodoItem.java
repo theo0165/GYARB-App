@@ -1,35 +1,26 @@
 package com.example.theo.todoappjava.Models;
 
-import com.example.theo.todoappjava.Helpers.DatabaseHelper;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
+import com.example.theo.todoappjava.Static.Categories;
+
+@Entity
 public class TodoItem {
-    private int _id;
-    private String _name;
-    private boolean _completed;
-    private int _category;
-    private String _categoryColor;
 
-    public TodoItem(String name, boolean completed, int category, int id){
-        // ID MAY BE NULL IF ITEM HAS NOT BEEN CREATED
-        _id = id;
-        _name = name;
-        _completed = completed;
-        _category = category;
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+    public String name;
+    public boolean completed;
+    public int category;
+    public String completeDate;
+    public boolean noDeadline;
+
+    public TodoItem(String name, boolean completed, int category, String completeDate, boolean noDeadline){
+        this.name = name;
+        this.completed = completed;
+        this.category = category;
+        this.completeDate = completeDate;
+        this.noDeadline = noDeadline;
     }
-
-    public int getId() { return _id; }
-
-    public void setId(int id) { this._id = id; }
-
-    public String getName() { return _name; }
-
-    public void setName(String name) { this._name = name; }
-
-    public boolean isCompleted() { return _completed; }
-
-    public void setCompleted(boolean completed) { this._completed = completed; }
-
-    public int getCategory() { return _category; }
-
-    public void setCategory(int category) { this._category = category; }
 }

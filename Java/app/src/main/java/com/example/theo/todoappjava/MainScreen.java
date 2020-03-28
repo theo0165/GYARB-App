@@ -2,27 +2,27 @@ package com.example.theo.todoappjava;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import com.example.theo.todoappjava.Helpers.DatabaseHelper;
+import com.example.theo.todoappjava.Databases.TodoItemDatabase;
 import com.example.theo.todoappjava.Models.TodoItem;
-
-import java.util.ArrayList;
+import com.example.theo.todoappjava.Static.Categories;
+import com.example.theo.todoappjava.TabFragments.TodoFragment;
 
 public class MainScreen extends AppCompatActivity {
     private static final String TAG = "com.example.theo.todoappjava";
 
     TabLayout tabLayout;
     ViewPager viewPager;
+
+    TabAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent addActivity = new Intent(MainScreen.this, AddActivity.class);
-                startActivity(addActivity);
+                startActivityForResult(addActivity, 0);
             }
         });
 
@@ -54,7 +54,7 @@ public class MainScreen extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.completed_tab_title));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final TabAdapter adapter = new TabAdapter(this, getSupportFragmentManager(), tabLayout.getTabCount());
+        adapter = new TabAdapter(this, getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -74,11 +74,24 @@ public class MainScreen extends AppCompatActivity {
 
             }
         });
+    }
 
-        final DatabaseHelper db = new DatabaseHelper(this);
-        ArrayList<TodoItem> items = db.getTodoItems(false);
-        for(int i = 0; i<items.size();i++){
-            Log.d(TAG, "onCreate: TODO ITEM:\nName: " + items.get(i).getName() + "\nCategory color: " + db.getCategoryColor(items.get(i).getCategory()) + "\n\n");
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 0) {
+            Bundle bundle = data.getExtras();
+            if(bundle != null) {
+                String name = (String)bundle.get("name");
+                String completeDate = (String)bundle.get("completeDate");
+                boolean noDeadline = (boolean)bundle.get("noDeadline");
+                int categoryId = (int)bundle.get("categoryId");
+
+                Log.d("TEST", "Name: "+ name);
+                //Categories.values()[]
+                adapter.getTodoFragment().getTodoListAdapter().addItem(new TodoItem(name, false, categoryId, completeDate, noDeadline));
+            }
         }
     }
 }

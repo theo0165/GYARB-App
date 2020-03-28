@@ -1,5 +1,6 @@
 package com.example.theo.todoappjava;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -15,7 +16,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -29,6 +29,12 @@ public class AddActivity extends AppCompatActivity {
     CheckBox noDeadlineCheckbox;
     ScrollView sV;
     FloatingActionButton saveBtn;
+
+    TodoListAdapter adapter;
+
+    public void setListAdapter(TodoListAdapter _adapter){
+        adapter = _adapter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +81,25 @@ public class AddActivity extends AppCompatActivity {
                 int checkedCategory = categoryGroup.getCheckedRadioButtonId();
                 RadioButton checkedCategoryButton = findViewById(checkedCategory);
 
-                if(nameInput.getText().toString().matches("")){
-                    Snackbar.make(v, "Name is required", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-                }else{
+                CheckBox noDeadlineCheckbox = findViewById(R.id.no_deadline_checkbox);
+                boolean noDeadline = noDeadlineCheckbox.isChecked();
 
+
+
+                if(nameInput.getText().toString().matches("")){
+                    Snackbar.make(v, "Title is required", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                }else {
+                    Intent intent = new Intent();
+                    intent.putExtra("name", nameInput.getText().toString());
+                    intent.putExtra("completeDate", datePicker.getDayOfMonth() + "-" + datePicker.getMonth() + "-" + datePicker.getYear());
+                    intent.putExtra("noDeadline", noDeadline);
+                    intent.putExtra("categoryId", checkedCategory);
+                    setResult(0, intent);
+
+                    //adapter.addItem();
                 }
+
+                finish();
             }
         });
     }

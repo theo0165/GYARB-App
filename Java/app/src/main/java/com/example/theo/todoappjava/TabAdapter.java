@@ -12,20 +12,28 @@ public class TabAdapter extends FragmentPagerAdapter {
     private Context gContext;
     int totalTabs;
 
+    private TodoFragment todoFragment;
+    private CompletedFragment completedFragment;
+
     public TabAdapter(Context context, FragmentManager fm, int totalTabs){
         super(fm);
         gContext = context;
         this.totalTabs = totalTabs;
+
+        this.todoFragment = new TodoFragment();
+        this.completedFragment = new CompletedFragment();
+
+        this.todoFragment.setCompletedFragment((this.completedFragment));
+
     }
 
     @Override
     public Fragment getItem(int pos){
         switch (pos){
             case 0:
-                TodoFragment todoFragment = new TodoFragment();
+                //this.todoFragment.getTodoListAdapter().setCompletedFragment(this.completedFragment);
                 return todoFragment;
             case 1:
-                CompletedFragment completedFragment = new CompletedFragment();
                 return completedFragment;
             default:
                 return null;
@@ -35,5 +43,9 @@ public class TabAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount(){
         return totalTabs;
+    }
+
+    public TodoFragment getTodoFragment() {
+        return todoFragment;
     }
 }
