@@ -29,10 +29,10 @@ public class MainScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
-        FloatingActionButton fabAddBtn = (FloatingActionButton) findViewById(R.id.add_btn);
+        FloatingActionButton fabAddBtn = findViewById(R.id.add_btn);
         fabAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent addActivity = new Intent(MainScreen.this, AddActivity.class);
                 startActivity(addActivity);
             }
