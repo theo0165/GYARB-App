@@ -1,10 +1,11 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
+import CompletedList from '../CompletedList';
 
 export default function CompletedView() {
   return (
     <View>
-        <Text>Completed</Text>
+        <CompletedList />
     </View>
   );
 }

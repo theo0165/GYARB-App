@@ -1,6 +1,6 @@
 export default {
     NONE: {
-        color: ""
+        color: "rgba(0,0,0,0)"
     },
 
     GREEN: {
