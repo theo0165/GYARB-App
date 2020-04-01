@@ -77,11 +77,3 @@ const styles = StyleSheet.create({
         borderWidth: 0
     }
 })
-
-/*
-
-[] TITLE
-                    Category
-   CompleteDate
-
-*/

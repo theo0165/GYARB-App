@@ -1,5 +1,5 @@
 import React from 'react';
-import StyleSheet from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -11,11 +11,9 @@ const Tabs = createMaterialTopTabNavigator();
 
 export default function TabNavigation(){
     return(
-        <NavigationContainer theme={DarkTheme}>
-            <Tabs.Navigator>
-                <Tabs.Screen name="Todo" component={TodoView} />
-                <Tabs.Screen name="Completed" component={CompletedView} />
-            </Tabs.Navigator>
-        </NavigationContainer>
+        <Tabs.Navigator>
+            <Tabs.Screen name="Todo" component={TodoView} />
+            <Tabs.Screen name="Completed" component={CompletedView} />
+        </Tabs.Navigator>
     );
 }
