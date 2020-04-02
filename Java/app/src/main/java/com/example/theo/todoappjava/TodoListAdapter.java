@@ -1,28 +1,29 @@
 package com.example.theo.todoappjava;
 
 import android.content.Context;
-import android.database.DataSetObserver;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.example.theo.todoappjava.Databases.TodoItemDatabase;
-import com.example.theo.todoappjava.Models.TodoItem;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.theo.todoappjava.TabFragments.CompletedFragment;
-import com.example.theo.todoappjava.TabFragments.TodoFragment;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import static android.support.constraint.Constraints.TAG;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHolder> {
     public ArrayList<TodoItem> dItems;
@@ -33,10 +34,86 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
     public TodoListAdapter(Context c, ArrayList<TodoItem> items){
         context = c;
         dItems = items;
+
+        FirebaseFirestore.getInstance().collection("todos").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                for(DocumentChange change : queryDocumentSnapshots.getDocumentChanges()) {
+                    if(change.getType() == DocumentChange.Type.ADDED) {
+                        Map<String, Object> data = change.getDocument().getData();
+                        Log.d("TESTING", "DATA: " + data);
+                        String name = (String)data.get("name");
+                        String completeDate = (String)data.get("completeDate");
+                        boolean noDeadline = (boolean)data.get("noDeadline");
+                        long categoryId = (long)data.get("categoryId");
+                        boolean completed = (boolean)data.get("completed");
+
+                        if(!completed)
+                            dItems.add(new TodoItem(change.getDocument().getId(), name, completeDate, noDeadline, (int)categoryId, completed));
+
+                        notifyDataSetChanged();
+                    } else if(change.getType() == DocumentChange.Type.MODIFIED) {
+                        Log.d("TESTING", "ID: " + change.getDocument().getId() + " : " + change.getDocument().getData());
+                        String id = change.getDocument().getId();
+
+                        Map<String, Object> data = change.getDocument().getData();
+                        String name = (String)data.get("name");
+                        String completeDate = (String)data.get("completeDate");
+                        boolean noDeadline = (boolean)data.get("noDeadline");
+                        long categoryId = (long)data.get("categoryId");
+                        boolean completed = (boolean)data.get("completed");
+
+                        if(completed) {
+                            int index = getItemIndexWithId(id);
+                            if(index != -1) {
+                                dItems.remove(index);
+                                notifyItemRemoved(index);
+                            }
+                        } else {
+                            if(hasItemWithId(id)) {
+                                int index = getItemIndexWithId(id);
+                                TodoItem item = dItems.get(index);
+                                item.name = name;
+                                item.completeDate = completeDate;
+                                item.noDeadline = noDeadline;
+                                item.categoryId = (int)categoryId;
+                                item.completed = false;
+
+                                notifyItemChanged(index);
+                            } else {
+                                dItems.add(new TodoItem(change.getDocument().getId(), name, completeDate, noDeadline, (int)categoryId, completed));
+                                notifyItemInserted(dItems.size() - 1);
+                            }
+
+                        }
+                    }
+                }
+            }
+        });
     }
 
     public void setCompletedFragment(CompletedFragment completedFragment) {
         this.completedFragment = completedFragment;
+    }
+
+    public boolean hasItemWithId(String id) {
+        for(TodoItem item : dItems) {
+            if(item.id.equals(id)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public int getItemIndexWithId(String id) {
+        for(int i = 0; i < dItems.size(); i++) {
+            if(dItems.get(i).id.equals(id)) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     @NonNull
@@ -57,17 +134,15 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
             viewHolder.mTodoDate.setText(dItems.get(i).completeDate);
         }
 
-        Log.d(TAG, "CATEGORY ID: " + dItems.get(i).category);
-
-        if(dItems.get(i).category == R.id.category_none){
+        if(dItems.get(i).categoryId == R.id.category_none){
             viewHolder.mCategoryBox.setVisibility(View.INVISIBLE);
-        }else if(dItems.get(i).category == R.id.category_green){
+        }else if(dItems.get(i).categoryId == R.id.category_green){
             viewHolder.mCategoryBox.setBackgroundColor(ContextCompat.getColor(context, R.color.radio_green));
-        }else if(dItems.get(i).category == R.id.category_red){
+        }else if(dItems.get(i).categoryId == R.id.category_red){
             viewHolder.mCategoryBox.setBackgroundColor(ContextCompat.getColor(context, R.color.radio_red));
-        }else if(dItems.get(i).category == R.id.category_orange){
+        }else if(dItems.get(i).categoryId == R.id.category_orange){
             viewHolder.mCategoryBox.setBackgroundColor(ContextCompat.getColor(context, R.color.radio_orange));
-        }else if(dItems.get(i).category == R.id.category_blue) {
+        }else if(dItems.get(i).categoryId == R.id.category_blue) {
             viewHolder.mCategoryBox.setBackgroundColor(ContextCompat.getColor(context, R.color.radio_blue));
         }
 
@@ -99,11 +174,19 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         @Override
         public void onClick(View v) {
             if(v.equals(mCheckbox)){
-                int itemID = Integer.parseInt(v.getTag().toString());
-                TodoItemDatabase.getDatabase(context).todoItemDao().setItemAsComplete(itemID);
-                TodoItem item = dItems.get(getAdapterPosition());
+                String itemID = (String)v.getTag();
 
-                completedFragment.getAdapter().addItem(item);
+                TodoItem item = dItems.get(getItemIndexWithId(itemID));
+
+                Map<String, Object> updateData = new HashMap<>();
+
+                updateData.put("name", item.name);
+                updateData.put("completeDate", item.completeDate);
+                updateData.put("noDeadline", item.noDeadline);
+                updateData.put("categoryId", item.categoryId);
+                updateData.put("completed", true);
+
+                FirebaseFirestore.getInstance().collection("todos").document(itemID).set(updateData);
 
                 removeAt(getAdapterPosition());
             }
@@ -115,13 +198,5 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, dItems.size());
-    }
-
-    public void addItem(TodoItem item){
-        dItems.add(item);
-        TodoItemDatabase.getDatabase(context).todoItemDao().addTodoItem(item);
-
-        notifyItemInserted(dItems.size() - 1);
-        notifyDataSetChanged();
     }
 }

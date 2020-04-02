@@ -1,21 +1,20 @@
 package com.example.theo.todoappjava.TabFragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.theo.todoappjava.CompletedListAdapter;
-import com.example.theo.todoappjava.Databases.TodoItemDatabase;
-import com.example.theo.todoappjava.Models.TodoItem;
 import com.example.theo.todoappjava.R;
-import com.example.theo.todoappjava.TodoListAdapter;
+import com.example.theo.todoappjava.TodoItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +47,8 @@ public class CompletedFragment extends Fragment {
         Log.d(TAG, "onViewCreated: adding items to list");
         super.onViewCreated(view, savedInstanceState);
 
-        List<TodoItem> items = TodoItemDatabase.getDatabase(getContext()).todoItemDao().getCompletedTodoItems();
-        ArrayList<TodoItem> todoItems = new ArrayList<>(items);
+        //List<TodoItem> items = TodoItemDatabase.getDatabase(getContext()).todoItemDao().getCompletedTodoItems();
+        ArrayList<TodoItem> todoItems = new ArrayList<>();
 
         recyclerView = view.findViewById(R.id.completeList);
         completedListAdapter = new CompletedListAdapter(getContext(), todoItems);

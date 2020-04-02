@@ -2,19 +2,27 @@ package com.example.theo.todoappjava;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.example.theo.todoappjava.Databases.TodoItemDatabase;
-import com.example.theo.todoappjava.Models.TodoItem;
-import com.example.theo.todoappjava.Static.Categories;
-import com.example.theo.todoappjava.TabFragments.TodoFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainScreen extends AppCompatActivity {
     private static final String TAG = "com.example.theo.todoappjava";
@@ -27,7 +35,34 @@ public class MainScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(this);
+
         setContentView(R.layout.activity_main_screen);
+
+        /*FirebaseFirestore.getInstance().collection("todos").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                // Log.d("TESTING", snapshot.getDocumentChanges().get(0).getDocument().getData().toString());
+            }
+        });*/
+
+        /*Map<String, Object> map = new HashMap<>();
+        map.put("name", "Hello World");
+        map.put("test", "Wooh");
+
+        FirebaseFirestore.getInstance().collection("todos").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                if(task.isSuccessful()) {
+                    task.getResult().addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                            Log.d("TESTING", "DATA: " + documentSnapshot.getId() + " => " + documentSnapshot.getData());
+                        }
+                    });
+                }
+            }
+        });*/
 
         FloatingActionButton fabAddBtn = findViewById(R.id.add_btn);
         fabAddBtn.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +123,20 @@ public class MainScreen extends AppCompatActivity {
                 boolean noDeadline = (boolean)bundle.get("noDeadline");
                 int categoryId = (int)bundle.get("categoryId");
 
-                adapter.getTodoFragment().getTodoListAdapter().addItem(new TodoItem(name, false, categoryId, completeDate, noDeadline));
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                Map<String, Object> dbData = new HashMap<>();
+                dbData.put("name", name);
+                dbData.put("completeDate", completeDate);
+                dbData.put("noDeadline", noDeadline);
+                dbData.put("categoryId", categoryId);
+                dbData.put("completed", false);
+
+                db.collection("todos").add(dbData);
+
+
+               // adapter.getTodoFragment().getTodoListAdapter().addItem(new TodoItem(name, false, categoryId, completeDate, noDeadline));
+                // adapter.getTodoFragment().getTodoListAdapter().addItem(new TodoItem(name, ));
             }
         }
     }
