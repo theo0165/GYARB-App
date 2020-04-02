@@ -1,9 +1,7 @@
 package com.example.theo.todoappjava;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,26 +15,19 @@ import android.widget.TextView;
 import com.example.theo.todoappjava.Databases.TodoItemDatabase;
 import com.example.theo.todoappjava.Models.TodoItem;
 import com.example.theo.todoappjava.TabFragments.CompletedFragment;
-import com.example.theo.todoappjava.TabFragments.TodoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHolder> {
-    public ArrayList<TodoItem> dItems;
-    public Context context;
+public class CompletedListAdapter extends RecyclerView.Adapter<CompletedListAdapter.ViewHolder> {
+    private ArrayList<TodoItem> dItems;
+    private Context context;
 
-    private CompletedFragment completedFragment;
-
-    public TodoListAdapter(Context c, ArrayList<TodoItem> items){
+    public CompletedListAdapter(Context c, ArrayList<TodoItem> items){
         context = c;
         dItems = items;
-    }
-
-    public void setCompletedFragment(CompletedFragment completedFragment) {
-        this.completedFragment = completedFragment;
     }
 
     @NonNull
@@ -59,16 +50,16 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
         Log.d(TAG, "CATEGORY ID: " + dItems.get(i).category);
 
-        if(dItems.get(i).category == R.id.category_none){
+        if(dItems.get(i).category == 0){
             viewHolder.mCategoryBox.setVisibility(View.INVISIBLE);
-        }else if(dItems.get(i).category == R.id.category_green){
-            viewHolder.mCategoryBox.setBackgroundColor(ContextCompat.getColor(context, R.color.radio_green));
-        }else if(dItems.get(i).category == R.id.category_red){
-            viewHolder.mCategoryBox.setBackgroundColor(ContextCompat.getColor(context, R.color.radio_red));
-        }else if(dItems.get(i).category == R.id.category_orange){
-            viewHolder.mCategoryBox.setBackgroundColor(ContextCompat.getColor(context, R.color.radio_orange));
-        }else if(dItems.get(i).category == R.id.category_blue) {
-            viewHolder.mCategoryBox.setBackgroundColor(ContextCompat.getColor(context, R.color.radio_blue));
+        }else if(dItems.get(i).category == 1){
+            viewHolder.mCategoryBox.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_green_background));
+        }else if(dItems.get(i).category == 2){
+            viewHolder.mCategoryBox.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_red_background));
+        }else if(dItems.get(i).category == 3){
+            viewHolder.mCategoryBox.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_orange_background));
+        }else if(dItems.get(i).category == 4) {
+            viewHolder.mCategoryBox.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_blue_background));
         }
 
         viewHolder.itemView.setTag(dItems.get(i).id);
@@ -85,7 +76,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         TextView mTodoText, mTodoDate;
         View mCategoryBox;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mCheckbox = itemView.findViewById(R.id.completeCheckbox);
@@ -99,29 +90,30 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         @Override
         public void onClick(View v) {
             if(v.equals(mCheckbox)){
-                int itemID = Integer.parseInt(v.getTag().toString());
-                TodoItemDatabase.getDatabase(context).todoItemDao().setItemAsComplete(itemID);
-                TodoItem item = dItems.get(getAdapterPosition());
-
-                completedFragment.getAdapter().addItem(item);
-
                 removeAt(getAdapterPosition());
             }
         }
     }
 
-    public void removeAt(int position){
+    private void removeAt(int position) {
         dItems.remove(position);
 
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, dItems.size());
     }
 
-    public void addItem(TodoItem item){
-        dItems.add(item);
-        TodoItemDatabase.getDatabase(context).todoItemDao().addTodoItem(item);
+    public void addItemFromDatabase(int id) {
+        Log.d("TESTING", "Id: " + id);
+        TodoItem item = TodoItemDatabase.getDatabase(context).todoItemDao().getItem(id);
+        Log.d("TESTING", item.name);
 
+        //dItems.add();
+    }
+
+    public void addItem(TodoItem item) {
+        Log.d("TESTING", item.name);
+
+        dItems.add(item);
         notifyItemInserted(dItems.size() - 1);
-        notifyDataSetChanged();
     }
 }
