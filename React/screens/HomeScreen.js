@@ -5,10 +5,11 @@ import { createStackNavigator, createAppContainer } from '@react-navigation/nati
 import TabNavigation from '../modules/TabNavigation';
 import FabButtons from '../modules/FabButtons';
 
-export default HomeScreen = ({navigation}) => {
+export default HomeScreen = () => {
     return (
-        <View style={{alignSelf: 'baseline'}}>
+        <View>
           <TabNavigation />
+          <FabButtons />
         </View>
     )
 }

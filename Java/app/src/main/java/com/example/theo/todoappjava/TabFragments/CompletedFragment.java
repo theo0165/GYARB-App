@@ -23,7 +23,7 @@ import static android.content.ContentValues.TAG;
 
 public class CompletedFragment extends Fragment {
     private RecyclerView recyclerView;
-    private TodoListAdapter todoListAdapter;
+    public TodoListAdapter todoListAdapter;
 
     public CompletedFragment(){}
 

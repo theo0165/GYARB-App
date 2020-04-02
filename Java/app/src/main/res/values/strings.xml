@@ -9,6 +9,7 @@
     <string name="completed_tab_title">Completed</string>
 
     <string name="title_add_screen">Add todo</string>
+    <string name="title_settings_screen">Settings</string>
 
     <string name="add_input_name_title">Name</string>
     <string name="add_input_deadline_title">Deadline</string>
