@@ -23,8 +23,8 @@ public class TabAdapter extends FragmentPagerAdapter {
         this.todoFragment = new TodoFragment();
         this.completedFragment = new CompletedFragment();
 
-        this.todoFragment.setCompletedFragment((this.completedFragment));
-
+        this.todoFragment.setCompletedFragment(this.completedFragment);
+        //this.completedFragment.setTodoFragment(this.todoFragment);
     }
 
     @Override

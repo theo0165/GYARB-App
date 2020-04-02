@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.theo.todoappjava.CompletedListAdapter;
 import com.example.theo.todoappjava.Databases.TodoItemDatabase;
 import com.example.theo.todoappjava.Models.TodoItem;
 import com.example.theo.todoappjava.R;
@@ -23,12 +24,18 @@ import static android.content.ContentValues.TAG;
 
 public class CompletedFragment extends Fragment {
     private RecyclerView recyclerView;
-    private TodoListAdapter todoListAdapter;
+    private CompletedListAdapter completedListAdapter;
+
+    private TodoFragment todoFragment;
 
     public CompletedFragment(){}
 
-    public TodoListAdapter getAdapter() {
-        return todoListAdapter;
+    public void setTodoFragment(TodoFragment todoFragment)  {
+        this.todoFragment = todoFragment;
+    }
+
+    public CompletedListAdapter getAdapter() {
+        return completedListAdapter;
     }
 
     @Override
@@ -45,9 +52,9 @@ public class CompletedFragment extends Fragment {
         ArrayList<TodoItem> todoItems = new ArrayList<>(items);
 
         recyclerView = view.findViewById(R.id.completeList);
-        todoListAdapter = new TodoListAdapter(getContext(), todoItems);
+        completedListAdapter = new CompletedListAdapter(getContext(), todoItems);
 
-        recyclerView.setAdapter(todoListAdapter);
+        recyclerView.setAdapter(completedListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 

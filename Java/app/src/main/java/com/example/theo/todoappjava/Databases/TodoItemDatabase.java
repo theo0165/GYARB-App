@@ -10,7 +10,7 @@ import com.example.theo.todoappjava.Models.TodoItemDao;
 import com.example.theo.todoappjava.Models.DataTable;
 import com.example.theo.todoappjava.Models.DataTableDao;
 
-@Database(entities = {TodoItem.class, DataTable.class}, version = 20, exportSchema = false)
+@Database(entities = {TodoItem.class, DataTable.class}, version = 21, exportSchema = false)
 public abstract class TodoItemDatabase extends RoomDatabase {
 
     public static TodoItemDatabase INSTANCE;

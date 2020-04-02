@@ -89,7 +89,7 @@ public class MainScreen extends AppCompatActivity {
                 int categoryId = (int)bundle.get("categoryId");
 
                 Log.d("TEST", "Name: "+ name);
-                //Categories.values()[]
+
                 adapter.getTodoFragment().getTodoListAdapter().addItem(new TodoItem(name, false, categoryId, completeDate, noDeadline));
             }
         }
