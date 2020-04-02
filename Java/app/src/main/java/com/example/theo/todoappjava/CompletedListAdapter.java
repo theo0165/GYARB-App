@@ -1,25 +1,23 @@
 package com.example.theo.todoappjava;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.theo.todoappjava.Databases.TodoItemDatabase;
 import com.example.theo.todoappjava.Models.TodoItem;
-import com.example.theo.todoappjava.TabFragments.CompletedFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static android.support.constraint.Constraints.TAG;
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class CompletedListAdapter extends RecyclerView.Adapter<CompletedListAdapter.ViewHolder> {
     private ArrayList<TodoItem> dItems;
@@ -47,8 +45,6 @@ public class CompletedListAdapter extends RecyclerView.Adapter<CompletedListAdap
         }else{
             viewHolder.mTodoDate.setText(dItems.get(i).completeDate);
         }
-
-        Log.d(TAG, "CATEGORY ID: " + dItems.get(i).category);
 
         if(dItems.get(i).category == 0){
             viewHolder.mCategoryBox.setVisibility(View.INVISIBLE);
@@ -102,17 +98,7 @@ public class CompletedListAdapter extends RecyclerView.Adapter<CompletedListAdap
         notifyItemRangeChanged(position, dItems.size());
     }
 
-    public void addItemFromDatabase(int id) {
-        Log.d("TESTING", "Id: " + id);
-        TodoItem item = TodoItemDatabase.getDatabase(context).todoItemDao().getItem(id);
-        Log.d("TESTING", item.name);
-
-        //dItems.add();
-    }
-
     public void addItem(TodoItem item) {
-        Log.d("TESTING", item.name);
-
         dItems.add(item);
         notifyItemInserted(dItems.size() - 1);
     }

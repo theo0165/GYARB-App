@@ -1,9 +1,7 @@
 package com.example.theo.todoappjava.Models;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-
-import com.example.theo.todoappjava.Static.Categories;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 @Entity
 public class TodoItem {

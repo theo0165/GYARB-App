@@ -9,3 +9,5 @@
 .externalNativeBuild
 
 .grade/
+
+google-services.json

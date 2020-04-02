@@ -1,28 +1,23 @@
 package com.example.theo.todoappjava;
 
 import android.content.Context;
-import android.database.DataSetObserver;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.theo.todoappjava.Databases.TodoItemDatabase;
 import com.example.theo.todoappjava.Models.TodoItem;
 import com.example.theo.todoappjava.TabFragments.CompletedFragment;
-import com.example.theo.todoappjava.TabFragments.TodoFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static android.support.constraint.Constraints.TAG;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHolder> {
     public ArrayList<TodoItem> dItems;
@@ -56,8 +51,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         }else{
             viewHolder.mTodoDate.setText(dItems.get(i).completeDate);
         }
-
-        Log.d(TAG, "CATEGORY ID: " + dItems.get(i).category);
 
         if(dItems.get(i).category == R.id.category_none){
             viewHolder.mCategoryBox.setVisibility(View.INVISIBLE);

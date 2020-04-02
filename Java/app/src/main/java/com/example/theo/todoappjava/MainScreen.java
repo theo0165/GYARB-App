@@ -2,19 +2,15 @@ package com.example.theo.todoappjava;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
-import com.example.theo.todoappjava.Databases.TodoItemDatabase;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.theo.todoappjava.Models.TodoItem;
-import com.example.theo.todoappjava.Static.Categories;
-import com.example.theo.todoappjava.TabFragments.TodoFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 public class MainScreen extends AppCompatActivity {
     private static final String TAG = "com.example.theo.todoappjava";

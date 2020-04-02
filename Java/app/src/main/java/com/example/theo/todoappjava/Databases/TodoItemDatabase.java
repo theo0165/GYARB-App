@@ -1,14 +1,15 @@
 package com.example.theo.todoappjava.Databases;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.example.theo.todoappjava.Models.TodoItem;
-import com.example.theo.todoappjava.Models.TodoItemDao;
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+
 import com.example.theo.todoappjava.Models.DataTable;
 import com.example.theo.todoappjava.Models.DataTableDao;
+import com.example.theo.todoappjava.Models.TodoItem;
+import com.example.theo.todoappjava.Models.TodoItemDao;
 
 @Database(entities = {TodoItem.class, DataTable.class}, version = 21, exportSchema = false)
 public abstract class TodoItemDatabase extends RoomDatabase {
