@@ -5,11 +5,16 @@ import { createStackNavigator, createAppContainer } from '@react-navigation/nati
 import TabNavigation from '../modules/TabNavigation';
 import FabButtons from '../modules/FabButtons';
 
-export default HomeScreen = () => {
+export default HomeScreen = (props) => {
+    function navigateToScreen(screen){
+      console.log("Change screen.")
+      props.navigation.navigate(screen)
+    }
+
     return (
-        <View>
+        <>
           <TabNavigation />
-          <FabButtons />
-        </View>
+          <FabButtons changeScreen={navigateToScreen} />
+        </>
     )
 }

@@ -38,21 +38,22 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer theme={DarkTheme}>
-      <Stack.Navigator>
+      <Stack.Navigator
+        initialRouteName="Home">
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{headerShown: false}} />
+          options={{headerShown: false, title:"Home"}} />
         
         <Stack.Screen
           name="Settings"
           component={SettingsScreen}
-          options={{headerShown: false}} />
+          options={{headerShown: true, title:"Settings"}} />
 
         <Stack.Screen
           name="AddItem"
           component={AddItemScreen}
-          options={{headerShown:false}} />
+          options={{headerShown: true, title:"Add todo"}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

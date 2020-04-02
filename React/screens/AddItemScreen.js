@@ -6,7 +6,7 @@ export default class AddItemScreen extends Component {
   render() {
     return (
         <View>
-            <Text>Add item</Text>
+            
         </View>
     )
   }

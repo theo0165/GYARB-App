@@ -5,8 +5,8 @@ import { createStackNavigator, createAppContainer } from '@react-navigation/nati
 export default class SettingsScreen extends Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Settings</Text>
+      <View>
+        
       </View>
     )
   }
