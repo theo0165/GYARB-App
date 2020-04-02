@@ -74,7 +74,7 @@ public class CompletedListAdapter extends RecyclerView.Adapter<CompletedListAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         CheckBox mCheckbox;
         TextView mTodoText, mTodoDate;
-        RadioButton mCategoryBox;
+        View mCategoryBox;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
