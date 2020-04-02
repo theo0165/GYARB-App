@@ -13,9 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.theo.todoappjava.CompletedListAdapter;
-import com.example.theo.todoappjava.Databases.TodoItemDatabase;
-import com.example.theo.todoappjava.Models.TodoItem;
 import com.example.theo.todoappjava.R;
+import com.example.theo.todoappjava.TodoItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +47,8 @@ public class CompletedFragment extends Fragment {
         Log.d(TAG, "onViewCreated: adding items to list");
         super.onViewCreated(view, savedInstanceState);
 
-        List<TodoItem> items = TodoItemDatabase.getDatabase(getContext()).todoItemDao().getCompletedTodoItems();
-        ArrayList<TodoItem> todoItems = new ArrayList<>(items);
+        //List<TodoItem> items = TodoItemDatabase.getDatabase(getContext()).todoItemDao().getCompletedTodoItems();
+        ArrayList<TodoItem> todoItems = new ArrayList<>();
 
         recyclerView = view.findViewById(R.id.completeList);
         completedListAdapter = new CompletedListAdapter(getContext(), todoItems);

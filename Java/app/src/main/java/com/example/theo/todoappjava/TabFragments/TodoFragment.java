@@ -11,13 +11,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.theo.todoappjava.Databases.TodoItemDatabase;
-import com.example.theo.todoappjava.Models.TodoItem;
 import com.example.theo.todoappjava.R;
+import com.example.theo.todoappjava.TodoItem;
 import com.example.theo.todoappjava.TodoListAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TodoFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -47,8 +45,25 @@ public class TodoFragment extends Fragment {
         // ArrayList<TodoItem> items = new ArrayList<>();
         //items.add(new TodoItem("Test", false, 1, 1, "2020-01-01"));
 
-        List<TodoItem> items = TodoItemDatabase.getDatabase(getContext()).todoItemDao().getAllTodoItems();
-        ArrayList<TodoItem> items1 = new ArrayList<>(items);
+        // List<TodoItem> items = TodoItemDatabase.getDatabase(getContext()).todoItemDao().getAllTodoItems();
+        final ArrayList<TodoItem> items1 = new ArrayList<>();
+
+        /*FirebaseFirestore.getInstance().collection("todos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    for(QueryDocumentSnapshot document : task.getResult()) {
+                        String name = (String)document.getData().get("name");
+                        String completeDate = (String)document.getData().get("completeDate");
+                        boolean noDeadline = (boolean)document.getData().get("noDeadline");
+                        long categoryId = (long)document.getData().get("categoryId");
+                        boolean completed = (boolean)document.getData().get("completed");
+
+                        items1.add(new TodoItem(name, completed, (int)categoryId, completeDate, noDeadline));
+                    }
+                }
+            }
+        });*/
 
         recyclerView = view.findViewById(R.id.todoList);
         todoListAdapter = new TodoListAdapter(getContext(), items1);
