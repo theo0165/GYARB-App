@@ -59,16 +59,16 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
         Log.d(TAG, "CATEGORY ID: " + dItems.get(i).category);
 
-        if(dItems.get(i).category == 0){
+        if(dItems.get(i).category == R.id.category_none){
             viewHolder.mCategoryBox.setVisibility(View.INVISIBLE);
-        }else if(dItems.get(i).category == 1){
-            viewHolder.mCategoryBox.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_green_background));
-        }else if(dItems.get(i).category == 2){
-            viewHolder.mCategoryBox.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_red_background));
-        }else if(dItems.get(i).category == 3){
-            viewHolder.mCategoryBox.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_orange_background));
-        }else if(dItems.get(i).category == 4) {
-            viewHolder.mCategoryBox.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_blue_background));
+        }else if(dItems.get(i).category == R.id.category_green){
+            viewHolder.mCategoryBox.setBackgroundColor(ContextCompat.getColor(context, R.color.radio_green));
+        }else if(dItems.get(i).category == R.id.category_red){
+            viewHolder.mCategoryBox.setBackgroundColor(ContextCompat.getColor(context, R.color.radio_red));
+        }else if(dItems.get(i).category == R.id.category_orange){
+            viewHolder.mCategoryBox.setBackgroundColor(ContextCompat.getColor(context, R.color.radio_orange));
+        }else if(dItems.get(i).category == R.id.category_blue) {
+            viewHolder.mCategoryBox.setBackgroundColor(ContextCompat.getColor(context, R.color.radio_blue));
         }
 
         viewHolder.itemView.setTag(dItems.get(i).id);
@@ -83,7 +83,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         CheckBox mCheckbox;
         TextView mTodoText, mTodoDate;
-        RadioButton mCategoryBox;
+        View mCategoryBox;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

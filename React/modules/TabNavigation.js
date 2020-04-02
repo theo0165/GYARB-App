@@ -3,8 +3,8 @@ import { StyleSheet, View } from 'react-native';
 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import TodoView from './TabComponents/Todo';
-import CompletedView from './TabComponents/Completed';
+import TodoView from './TabComponents/TodoView';
+import CompletedView from './TabComponents/CompletedView';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 
 const Tabs = createMaterialTopTabNavigator();

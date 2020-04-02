@@ -49,17 +49,16 @@
         app:layout_constraintStart_toEndOf="@+id/completeCheckbox"
         app:layout_constraintTop_toBottomOf="@+id/todoText" />
 
-    <RadioButton
+    <View
         android:id="@+id/category_box"
         android:layout_width="@dimen/category_btn_width"
         android:layout_height="@dimen/category_btn_height"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:button="@android:color/transparent"
-        android:text=""
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.111"
-        android:clickable="false"/>
+        android:clickable="false" />
 </android.support.constraint.ConstraintLayout>

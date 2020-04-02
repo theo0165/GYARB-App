@@ -42,8 +42,8 @@ public class MainScreen extends AppCompatActivity {
         fabSettingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Snackbar.make(view, "Settings", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent settingsActivity = new Intent(MainScreen.this, SettingsActivity.class);
+                startActivityForResult(settingsActivity, 0);
             }
         });
 
@@ -87,8 +87,6 @@ public class MainScreen extends AppCompatActivity {
                 String completeDate = (String)bundle.get("completeDate");
                 boolean noDeadline = (boolean)bundle.get("noDeadline");
                 int categoryId = (int)bundle.get("categoryId");
-
-                Log.d("TEST", "Name: "+ name);
 
                 adapter.getTodoFragment().getTodoListAdapter().addItem(new TodoItem(name, false, categoryId, completeDate, noDeadline));
             }
