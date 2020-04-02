@@ -20,6 +20,9 @@ public interface TodoItemDao {
     @Query("SELECT * FROM todoitem WHERE completed = '1'")
     List<TodoItem> getCompletedTodoItems();
 
+    @Query("SELECT * FROM todoItem WHERE id=:id")
+    TodoItem getItem(int id);
+
     @Query("DELETE FROM todoitem WHERE id=:id")
     void removeTodoItem(int id);
 
