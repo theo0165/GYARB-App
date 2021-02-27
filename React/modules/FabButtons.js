@@ -51,10 +51,3 @@ export default FabButtons = (props) => {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    fab: {
-        padding: 16,
-        backgroundColor: "#424242"
-    }
-})
